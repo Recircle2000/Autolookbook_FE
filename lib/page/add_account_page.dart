@@ -1,3 +1,8 @@
+
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:autolookbook/utils/http_simple.dart';
 
@@ -12,98 +17,89 @@ class AddAccountPage extends StatefulWidget {
 }
 
 class _AddAccountPageState extends State<AddAccountPage> {
-  final usernameController = TextEditingController();
-  final emailController = TextEditingController();
-  final pwController = TextEditingController();
-  final nickNameController = TextEditingController();
-  final checkPWController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _nicknameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _password2Controller = TextEditingController();
+  TextEditingController _ageController = TextEditingController();
+  TextEditingController _instagramIdController = TextEditingController();
+  late File _profileImage;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-          TextFormField(
-          controller: usernameController,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'id',
-          ),
-        ),
-            TextFormField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'email',
+      appBar: AppBar(
+        title: Text('User Registration'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _usernameController,
+                decoration: InputDecoration(labelText: 'Username'),
               ),
-            ),
-            /*ElevatedButton(
-                child: Text("이메일 가입 확인"),
-                onPressed: () {
-                  //isUniqe(emailController.text, context);
-                  bool emailValid = RegExp(
-                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                      .hasMatch(emailController.text);
-                  if (emailValid == false) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(emailErrorSnackBar());
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(labelText: 'Email'),
+              ),
+              TextFormField(
+                controller: _nicknameController,
+                decoration: InputDecoration(labelText: 'Nickname'),
+              ),
+              TextFormField(
+                controller: _passwordController,
+                decoration: InputDecoration(labelText: 'Password'),
+                obscureText: true,
+              ),
+              TextFormField(
+                controller: _password2Controller,
+                decoration: InputDecoration(labelText: 'Password2'),
+                obscureText: true,
+              ),
+              TextFormField(
+                controller: _ageController,
+                decoration: InputDecoration(labelText: 'Age'),
+              ),
+              TextFormField(
+                controller: _instagramIdController,
+                decoration: InputDecoration(labelText: 'Instagram ID'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  FilePickerResult? result = await FilePicker.platform.pickFiles();
+                  if(result != null) {
+                    setState(() {
+                      _profileImage = File(result.files.single.path!);
+                    });
                   }
-                }),*/
-            const SizedBox(height: 4.0),
-            TextField(
-              controller: nickNameController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'nickname',
+                },
+
+                child: Text('Pick Profile Image'),
               ),
-            ),
-            /*ElevatedButton(
-              child: Text("닉네임 중복 확인"),
-              onPressed: () {
-                //isNickNameUniqe(nickNameController.text, context);
-              },
-            ),*/
-            const SizedBox(height: 4.0),
-            TextField(
-              controller: pwController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'password',
-              ),
-            ),
-            const SizedBox(height: 4.0),
-            TextField(
-              controller: checkPWController,
-              obscureText: true, // 비밀번호 입력시 마지막 커서를 제외한 나머지를 검은 점으로
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'check password',
-              ),
-            ),
-            ElevatedButton(
-              child: Text("JOIN!"),
-              onPressed: () {
-                if (!(pwController.text == checkPWController.text)) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(passwordErrorSnackBar());
-                } else {
-                  debugPrint("모든 정보를 정상적으로 입력하였습니다");
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return addUser(usernameController.text, emailController.text,
-                          nickNameController.text, pwController.text);
-                    },
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // Call the addUser function with the provided data
+                  addUser(
+                    context,
+                    _usernameController.text,
+                    _passwordController.text,
+                    _password2Controller.text,
+                    _nicknameController.text,
+                    _instagramIdController.text,
+                    _ageController.text,
+                    _emailController.text,
+                    _profileImage as File,
                   );
-                }
-              },
-            )
-          ],
+                },
+                child: Text('Register'),
+              ),
+            ],
+          ),
         ),
       ),
     );

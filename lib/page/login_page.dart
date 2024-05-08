@@ -28,18 +28,13 @@ Widget build(BuildContext context) {
           children: [
             TextFormField(
               controller: usernameController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'username',
-              ),
+              obscureText: true,
+              decoration: InputDecoration(labelText: 'ID'),
             ),
             TextFormField(
               controller: pwController,
               obscureText: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'password',
-              ),
+              decoration: InputDecoration(labelText: '비밀번호'),
             ),
             ElevatedButton(
               child: Text("LOGIN"),
