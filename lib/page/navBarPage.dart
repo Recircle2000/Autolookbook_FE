@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../widget/home_body_widget.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+class NavBarPage extends StatefulWidget {
+  NavBarPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => HomePageState();
+  State<NavBarPage> createState() => NavBarPageState();
 }
 
-class HomePageState extends State<HomePage> {
+class NavBarPageState extends State<NavBarPage> {
   static int bottomNaviationBarIndex = 0;
 
   setindex(int value) => setState(
@@ -41,14 +41,14 @@ class HomePageState extends State<HomePage> {
             title: Text("옷 추가"),
             selectedColor: Colors.black,
           ),
-          /*SalomonBottomBarItem(
-            icon: Icon(Icons.search),
-            title: Text("Search"),
-            selectedColor: Colors.grey,
-          ),*/
           SalomonBottomBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.settings),
             title: Text("설정"),
+            selectedColor: Colors.grey,
+          ),
+          SalomonBottomBarItem(
+            icon: Icon(Icons.bug_report),
+            title: Text("디버그 임시페이지"),
             selectedColor: Colors.grey,
           ),
         ],

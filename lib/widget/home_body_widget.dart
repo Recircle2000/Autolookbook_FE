@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:autolookbook/page/mainPage.dart';
 import 'package:autolookbook/page/profile_page.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -58,32 +60,33 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
             );
           } else {
             switch (widget.bottomNavigationBarIndex) {
+              case 0:
+
               case 1:
-                return Column(
 
-                );
               case 2:
-                return Column(
-                  children: [
-                    Text(
-                        "${Provider.of<UserLoginProvider>(context).getUserLoginState}"),
-                    ElevatedButton(
-                      child: Text("계정 관리"),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ShowProfilePage(
-                              setHomeIndex: widget.setHomeIndex,
+                return Center(
+                  child: Column(
+                    children: [
+                      Text(
+                          "${Provider.of<UserLoginProvider>(context).getUserLoginState}"),
+                      ElevatedButton(
+                        child: Text("계정 관리"),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ShowProfilePage(
+                                setHomeIndex: widget.setHomeIndex,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 );
-
-              default:
+              case 3:
                 return Center(
                     child: Column(
                       children: <Widget>[
@@ -100,6 +103,8 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
                             child: Text("토큰 출력(디버그용)"))
                       ],
                     ));
+              default:
+
             }
           }
         }

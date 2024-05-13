@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:autolookbook/page/mainpage.dart';
+import 'package:autolookbook/page/navBarPage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -34,7 +34,7 @@ class _LoginPage2State extends State<LoginPage2> {
           width: MediaQuery.of(context).size.width * 0.4,
           height: MediaQuery.of(context).size.height * 0.4,
           child: FutureBuilder(
-              future: httpUserLogin(widget.username, widget.pw),
+              future: httpUserLogin(context, widget.username, widget.pw),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data.statusCode == 200) {
@@ -79,6 +79,21 @@ class _LoginPage2State extends State<LoginPage2> {
                     return Column(
                       children: [
                         Text("비밀번호 에러"),
+                        TextButton(
+                          child: Text("return"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
+                    );
+                  }
+                  else if (snapshot.data.statusCode == 401) {
+                    final responseBody = jsonDecode(snapshot.data.body);
+                    final errorMessage = responseBody['detail'];
+                    return Column(
+                      children: [
+                        Text(errorMessage),
                         TextButton(
                           child: Text("return"),
                           onPressed: () {
