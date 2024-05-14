@@ -25,8 +25,25 @@ class UserLoginResponse {
   }
 }
 
-Future httpUserLogin(BuildContext context, String username, String pw) async {
+Future<void> httpUserLogin(BuildContext context, String username, String pw) async {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return Dialog(
+        child: new Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            new CircularProgressIndicator(),
+            new Text("서버와 통신 중..."),
+          ],
+        ),
+      );
+    },
+  );
   var response = await http.post(
+    //192.168.45.97 = 내 컴퓨터 공유기 로컬주소
+    //localhost = 127.0.0.1
     Uri.parse('http://192.168.45.97:8000/api/user/login'),
     headers: <String, String>{
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -36,6 +53,7 @@ Future httpUserLogin(BuildContext context, String username, String pw) async {
       'password': pw,
     },
   );
+  Navigator.pop(context);
   /*if (response.statusCode == 422) {
    return UserLoginResponse.fromJson(jsonDecode(response.body));
   };*/

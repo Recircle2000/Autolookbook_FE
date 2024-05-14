@@ -23,6 +23,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
   TextEditingController _password2Controller = TextEditingController();
   TextEditingController _ageController = TextEditingController(text : '');
   TextEditingController _instagramIdController = TextEditingController(text : '');
+  late File _profileImage;
   FocusNode _nicknameFocusNode = FocusNode();
   FocusNode _passwordFocusNode = FocusNode();
   FocusNode _password2FocusNode = FocusNode();
@@ -93,7 +94,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                 controller: _instagramIdController,
                 textInputAction: TextInputAction.done,
                 onFieldSubmitted: (_) {
-                  addUser(
+                  /*addUser(
                     context,
                     _passwordController.text,
                     _password2Controller.text,
@@ -101,12 +102,12 @@ class _AddAccountPageState extends State<AddAccountPage> {
                     _instagramIdController.text,
                     _ageController.text,
                     _emailController.text,
-                    /*_profileImage as File,*/
-                  );
+                    _profileImage as File,
+                  );*/
                 },
                 decoration: InputDecoration(labelText: '인스타그램 ID(선택)'),
               ),
-              /*SizedBox(height: 20),
+              SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
                   FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -118,7 +119,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                 },
 
                 child: Text('Pick Profile Image'),
-              ),*/
+              ),
               SizedBox(height: 20),
               ElevatedButton(
                 style: ButtonStyle(
@@ -136,7 +137,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                     _instagramIdController.text,
                     _ageController.text,
                     _emailController.text,
-                    /*_profileImage as File,*/
+                    _profileImage as File,
                   );
                 },
                 child: Text('회원가입'),

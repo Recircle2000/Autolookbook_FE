@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserLoginProvider with ChangeNotifier {
@@ -6,6 +7,11 @@ class UserLoginProvider with ChangeNotifier {
   // 시작할때 user login 정보 load
   loadUserLoginState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    Fluttertoast.showToast(
+      msg: "user state modal shared preferences value : ${prefs.getBool('UserLogin')}",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+    );
     print(
         "user state modal shared preferences value : ${prefs.getBool('UserLogin')}");
     if ((prefs.getBool('UserLogin') ?? 0) == 0) {

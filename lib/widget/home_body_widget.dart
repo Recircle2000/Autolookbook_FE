@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:autolookbook/page/mainPage.dart';
 import 'package:autolookbook/page/profile_page.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +98,11 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
                             onPressed: () async {
                               final secureStorage =
                               await SharedPreferences.getInstance();
+                              Fluttertoast.showToast(
+                                  msg: "secure storage : ${secureStorage.getString("access_token") ?? 0}",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                              );
                               debugPrint(
                                   "secure storage : ${secureStorage.getString("access_token") ?? 0}");
                             },
