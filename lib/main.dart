@@ -1,30 +1,41 @@
+import 'package:autolookbook/app/controllers/auth_controller.dart';
+import 'package:autolookbook/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'package:autolookbook/router/routers.dart';
-import 'model/user_state.dart';
+import 'package:get/get.dart';
 
 void main() {
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => UserLoginProvider()),
-    ],
-    child: MyApp(),
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  final AuthController authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+
+        primarySwatch: Colors.blue,
+        primaryColor: Colors.black, // 앱의 주요 색상을 검정색으로 설정
+        textTheme: TextTheme(
+          bodyText1: TextStyle(color: Colors.black), // 기본 텍스트 색상을 검정색으로 설정
+          bodyText2: TextStyle(color: Colors.black), // 기본 텍스트 색상을 검정색으로 설정
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white, backgroundColor: Colors.black, // ElevatedButton 내의 텍스트 색상을 흰색으로 설정
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.black
+          )
+        ),
+
       ),
-      routes: routes,
+      initialRoute: '/login',  // 초기 라우트 설정
+      getPages: AppRoutes.routes,
     );
   }
 }
