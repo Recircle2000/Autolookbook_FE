@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
-import '../routes/app_routes.dart';  // 추가
+import '../routes/app_routes.dart'; // 추가
 
 class LoginView extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
@@ -22,11 +22,12 @@ class LoginView extends StatelessWidget {
                 controller: usernameController,
                 keyboardType: TextInputType.emailAddress, // 이메일 키보드
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9@]')), // 영문자, 숫자, @ 입력 허용
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9@.]')),
+                  // 영문자, 숫자, @ 입력 허용
                 ],
                 decoration: const InputDecoration(
-                    labelText: '이메일',
-                    border: OutlineInputBorder(),
+                  labelText: '이메일',
+                  border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(
@@ -41,15 +42,30 @@ class LoginView extends StatelessWidget {
                 obscureText: true,
               ),
               SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Handle login logic here
-                },
-                child: Text('로그인'),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (!authController.isLoggingIn.value) {
+                      authController.login(
+                        usernameController.text,
+                        passwordController.text,
+                      );
+                    }
+                  },
+                  child: Obx(() => authController.isLoggingIn.value
+                      ? CircularProgressIndicator(color: Colors.white)
+                      : Text('로그인')),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
               ),
               TextButton(
                 onPressed: () {
-                  Get.toNamed(AppRoutes.REGISTER);  // 회원가입 페이지로 이동
+                  Get.toNamed(AppRoutes.REGISTER); // 회원가입 페이지로 이동
                 },
                 child: Text('회원 가입'),
               ),

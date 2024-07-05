@@ -15,9 +15,9 @@ class RegisterController extends GetxController {
       String nickname,
       String instagramId,
       int age) async {
-    //에뮬레이터 127.0.0.1 == 10.0.2.2
+    //에뮬레이터 == 10.0.2.2
     //내부 ip == 192.168.45.97
-    var request = http.MultipartRequest('POST', Uri.parse('http://192.168.45.97:8000/api/user/create'));
+    var request = http.MultipartRequest('POST', Uri.parse('http://10.0.2.2:8000/api/user/create'));
     request.fields['username'] = username;
     request.fields['password1'] = password1;
     request.fields['password2'] = password2;

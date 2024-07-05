@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import '../views/login_view.dart';
-import '../views/home_view.dart';
+import '../views/nav_view.dart';
 import '../views/settings_view.dart';
 import '../views/add_clothes_view.dart';
 import '../views/register_view.dart';  // 추가
@@ -14,7 +14,7 @@ class AppRoutes {
 
   static final routes = [
     GetPage(name: LOGIN, page: () => LoginView()),
-    GetPage(name: HOME, page: () => HomeView()),
+    GetPage(name: HOME, page: () => NavView()),
     GetPage(name: ADD_CLOTHES, page: () => AddClothesView()),
     GetPage(name: SETTINGS, page: () => SettingsView()),
     GetPage(name: REGISTER, page: () => RegisterView()),  // 추가

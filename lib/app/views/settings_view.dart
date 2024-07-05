@@ -16,8 +16,10 @@ class SettingsView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Current Access Token: ${authController.getAccessToken()}',
-              style: TextStyle(fontSize: 18),
+              authController.getAccessToken() == null
+                  ? 'Access Token이 없습니다.'
+                  : 'Access Token: ${authController.getAccessToken()}',
+              style: TextStyle(fontSize: 2),
             ),
             SizedBox(height: 20),
             ElevatedButton(

@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'settings_view.dart';
 import 'add_clothes_view.dart';
+import 'main_view.dart';
+import '../controllers/location_controller.dart';
 
-class HomeView extends StatefulWidget {
+class NavView extends StatefulWidget {
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _NavViewState createState() => _NavViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _NavViewState extends State<NavView> {
   int _selectedIndex = 0;
+
   static List<Widget> _widgetOptions = <Widget>[
-    Text('Main Menu'),
+    MainView(),
     AddClothesView(),
     SettingsView(),
   ];
@@ -28,8 +31,14 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text('메인'),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
+
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

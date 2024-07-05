@@ -6,12 +6,14 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthController extends GetxController {
   var isLoggedIn = false.obs;
+  var isLoggingIn = false.obs;
   final storage = FlutterSecureStorage();
 
   void login(String username, String password) async {
+    isLoggingIn.value = true;
     final response = await http.post(
-      //Uri.parse('http://10.0.2.2:8000/api/user/login'),
-      Uri.parse('http://192.168.45.97:8000/api/user/login'),
+      Uri.parse('http://10.0.2.2:8000/api/user/login'),
+      //Uri.parse('http://192.168.45.97:8000/api/user/login'),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -21,10 +23,14 @@ class AuthController extends GetxController {
       },
     );
 
+    isLoggingIn.value = false;
+
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       await storage.write(key: 'access_token', value: data['access_token']);
       await storage.write(key: 'username', value: data['username']);
+      print("토큰값 : ${await storage.read(key: 'access_token')}");
+      //print("토큰값 : ${getAccessToken()}");
       isLoggedIn.value = true;
       Get.offAllNamed('/home');
     } else if (response.statusCode == 401) {
