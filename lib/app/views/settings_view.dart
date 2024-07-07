@@ -15,11 +15,12 @@ class SettingsView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('환경 설정 페이지'),
             Text(
               authController.getAccessToken() == null
                   ? 'Access Token이 없습니다.'
                   : 'Access Token: ${authController.getAccessToken()}',
-              style: TextStyle(fontSize: 2),
+              style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 20),
             ElevatedButton(

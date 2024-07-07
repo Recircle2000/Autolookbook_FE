@@ -12,6 +12,9 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('로그인'),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

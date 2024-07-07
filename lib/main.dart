@@ -1,9 +1,14 @@
 import 'package:autolookbook/app/controllers/auth_controller.dart';
 import 'package:autolookbook/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //await dotenv.load(fileName: ".env");	// 추가
+
   runApp(MyApp());
 }
 

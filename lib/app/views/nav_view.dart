@@ -28,23 +28,21 @@ class _NavViewState extends State<NavView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('메인'),
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-            child: _widgetOptions.elementAt(_selectedIndex),
+          Expanded(
+            child: Center(
+              child: _widgetOptions.elementAt(_selectedIndex),
+            ),
           ),
-
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: '메인 메뉴',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
