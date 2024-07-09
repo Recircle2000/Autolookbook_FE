@@ -1,7 +1,9 @@
+import 'package:autolookbook/app/controllers/gptcontroller.dart';
 import 'package:autolookbook/app/controllers/location_controller.dart';
 import 'package:autolookbook/app/controllers/weather_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../utils/weather_conditions.dart';
 import 'package:intl/intl.dart';
 import '../widgets/datedisplayWidget.dart';
@@ -9,6 +11,7 @@ import '../widgets/datedisplayWidget.dart';
 class MainView extends StatelessWidget {
   final LocationController locationController = Get.put(LocationController());
   final WeatherService weatherService = Get.put(WeatherService());
+  final GeminiController geminiController = Get.put(GeminiController());
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +31,16 @@ class MainView extends StatelessWidget {
                   SizedBox(height: 20),
                   Row(
                     children: [
-                      Icon(Icons.location_on),
+                      Obx(() => locationController.currentAddress.value.isEmpty
+                          ? Icon(Icons.location_off)
+                          : Icon(Icons.location_on)),
                       SizedBox(width: 8),
-                      Obx(() => Text(locationController.currentAddress.value)),
+                      Obx(() => locationController.currentAddress.value.isEmpty
+                          ? LoadingAnimationWidget.prograssiveDots(
+                              size: 20,
+                              color: Colors.black,
+                            )
+                          : Text(locationController.currentAddress.value)),
                     ],
                   ),
                   SizedBox(height: 8),
@@ -49,28 +59,43 @@ class MainView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               DateDisplayWidget(),
-                              Obx(() => Text(
-                                    '${weatherService.T1H.value}°C',
-                                    style: TextStyle(
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.bold),
+                              Obx(() => Center(
+                                    child: weatherService.T1H.value
+                                                .toString() ==
+                                            "99"
+                                        ? LoadingAnimationWidget
+                                            .waveDots(
+                                            size: 50,
+                                            color: Colors.black,
+                                          )
+                                        : Text(
+                                            '${weatherService.T1H.value}°C',
+                                            style: TextStyle(
+                                                fontSize: 35,
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
                                   )),
-                              Obx(() => Text('최저 ${weatherService.TMN.value}° / 최고 ${weatherService.TMX.value}°')),
+                              Obx(() => weatherService.TMN.value == 99 &&
+                                      weatherService.TMX.value == 99
+                                  ? Text('')
+                                  : Text(
+                                      '최저 ${weatherService.TMN.value}° / 최고 ${weatherService.TMX.value}°')),
                             ],
                           ),
                           Spacer(),
                           Container(
-                            height: 100, // Specify the height
-                            width: 100, // Specify the width to make it a square
+                            height: 100,
+                            width: 100,
                             decoration: BoxDecoration(
-                              color: Colors.white, // Set the color to white
-                              borderRadius: BorderRadius.circular(10), // Rounded corners
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5), // Shadow color with some transparency
-                                  spreadRadius: 2, // Spread radius
-                                  blurRadius: 7, // Blur radius
-                                  offset: Offset(0, 3), // Changes position of shadow
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 3),
                                 ),
                               ],
                             ),
@@ -78,8 +103,7 @@ class MainView extends StatelessWidget {
                               icon: Icon(Icons.exit_to_app), // 밖으로 나가는 아이콘
                               iconSize: 48.0,
                               onPressed: () {
-                                // 버튼이 눌렸을 때 실행할 코드를 여기에 작성하세요.
-                                // 예: Navigator.pop(context); // 현재 화면을 닫고 이전 화면으로 돌아갑니다.
+                                // 버튼이 눌렸을 때 실행할 코드 작성
                               },
                             ),
                           ),
@@ -87,6 +111,16 @@ class MainView extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: 8),
+                  Obx(() => Center(
+                        child: geminiController.Text.value.isEmpty
+                            ? LoadingAnimationWidget.prograssiveDots(
+                                size: 30,
+                                color: Colors.black,
+                              )
+                            : Text(geminiController.Text.value,
+                                textAlign: TextAlign.center),
+                      )),
                 ],
               ),
             ),

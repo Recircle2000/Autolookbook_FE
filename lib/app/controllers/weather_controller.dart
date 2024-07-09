@@ -6,27 +6,33 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../models/weather.dart'; // Import your WeatherData model
 import 'package:intl/intl.dart';
+import 'gptcontroller.dart';
 
 class WeatherService extends GetxController {
   LocationController locationController = Get.put(LocationController());
   List<WeatherData_Nest> _weatherDataList = [];
   List<WeatherData_Fest> _weatherDataList2 = [];
 
-  var T1H = 0.obs; // 기온
+  var T1H = 99.obs; // 기온
   var PTY = 99.obs; // 강수형태
   var WSD = 0.0.obs; // 풍속
   var RN1 = 0.0.obs; //시간별 강수량
-  var TMN = 0.obs; //최저기온
-  var TMX = 0.obs; //최고기온
+  var TMN = 99.obs; //최저기온
+  var TMX = 99.obs; //최고기온
+  var SKY = 99.obs; //하늘상태
 
   void onInit() async {
-    super.onInit();
-    await locationController.getCurrentLocation();
-    await fetchWeatherData(locationController.currentLocation_xy.value.x,
-        locationController.currentLocation_xy.value.y);
-    updateValue();
-    print("Location Controller Initialized");
-  }
+  super.onInit();
+  await locationController.getCurrentLocation();
+  await fetchWeatherData(locationController.currentLocation_xy.value.x,
+      locationController.currentLocation_xy.value.y);
+  updateValue();
+
+  // GeminiController의 인스턴스를 찾아서 getgemini 메소드를 호출
+  //final geminiController = Get.find<GeminiController>();
+  //await geminiController.getgemini(T1H.value.toString(), TMN.value.toString(), TMX.value.toString(), PTY.value, WSD.value.toString(), SKY.value);
+  print("Controller Initialized");
+}
 
   Future<void> fetchWeatherData(int x, int y) async {
     try {
@@ -37,11 +43,11 @@ class WeatherService extends GetxController {
       String baseDate = DateFormat('yyyyMMdd').format(now);
       String baseTime = DateFormat('HH00').format(now);
 
-      if (baseTime == '0000') {
-        baseDate =
-            DateFormat('yyyyMMdd').format(now.subtract(Duration(days: 1)));
-        baseTime = '2300';
-      }
+      // if (baseTime == '0000') {
+      //   baseDate =
+      //       DateFormat('yyyyMMdd').format(now.subtract(Duration(days: 1)));
+      //   baseTime = '2300';
+      // }
 
       final String serviceKey = dotenv.env['DATA_GO_KR_API_KEY'] ?? '';
       final String url_Ncst = // 초단기 실황
@@ -126,6 +132,11 @@ class WeatherService extends GetxController {
   final tmxData = _weatherDataList2.firstWhereOrNull((data) => data.category == 'TMX');
   if (tmxData != null) {
     TMX.value = double.tryParse(tmxData.fcstValue)?.round() ?? 0;
+  }
+
+  final skyData = _weatherDataList2.firstWhereOrNull((data) => data.category == 'SKY');
+  if (skyData != null) {
+    SKY.value = int.tryParse(skyData.fcstValue) ?? 0;
   }
 }
 }
