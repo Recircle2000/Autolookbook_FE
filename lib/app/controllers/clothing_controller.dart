@@ -1,8 +1,9 @@
-import 'dart:convert';
+
 
 import 'package:autolookbook/app/controllers/auth_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'package:path/path.dart';
@@ -15,6 +16,7 @@ class ClothingController extends GetxController {
   var isLoading = false.obs;
   var clothingItem = Rxn<ClothingItem>();
   var lastImagePath = ''.obs;
+  String url = dotenv.get("SERVER_IP");
 
   Future<String> saveImageLocally(File image) async {
     final directory = await getApplicationDocumentsDirectory(); // 앱의 문서 디렉토리 경로를 얻습니다.
@@ -26,7 +28,7 @@ class ClothingController extends GetxController {
   Future<void> uploadImage(File image) async {
     isLoading(true);
     try {
-      var request = http.MultipartRequest('POST', Uri.parse('http://10.0.2.2:8000/api/Clothes/yolo/'));
+      var request = http.MultipartRequest('POST', Uri.parse('http://$url:8000/api/Clothes/yolo/'));
       request.files.add(await http.MultipartFile.fromPath(
         'file',
         image.path,
@@ -60,8 +62,9 @@ class ClothingController extends GetxController {
 Future<void> confirmAndUpload() async {
   isLoading(true);
   try {
-
-    var uri = Uri.parse('http://10.0.2.2:8000/api/Clothes/create');
+    //192.168.45.97
+    //10.0.2.2
+    var uri = Uri.parse('http://192.168.45.126:8000/api/Clothes/create');
     var request = http.MultipartRequest('POST', uri);
 
     var authController = Get.find<AuthController>();

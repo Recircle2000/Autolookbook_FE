@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -7,6 +8,7 @@ import 'package:path/path.dart';
 
 class RegisterController extends GetxController {
   var selectedImage = Rx<File?>(null);
+  String url = dotenv.get("SERVER_IP");
 
   void register(
       String username,
@@ -16,14 +18,14 @@ class RegisterController extends GetxController {
       String instagramId,
       int age) async {
     //에뮬레이터 == 10.0.2.2
-    //내부 ip == 192.168.45.97
-    var request = http.MultipartRequest('POST', Uri.parse('http://10.0.2.2:8000/api/user/create'));
+    //내부 ip == 192.168.45.126
+    var request = http.MultipartRequest('POST', Uri.parse('http://$url:8000/api/user/create'));
     request.fields['username'] = username;
     request.fields['password1'] = password1;
     request.fields['password2'] = password2;
     request.fields['User_NickName'] = nickname;
-    request.fields['User_Instagram_ID'] = instagramId;
-    request.fields['User_Age'] = age.toString();
+    request.fields['User_Instagram_ID'] = instagramId.isNotEmpty ? instagramId : "default_instagram_id";
+    request.fields['User_Age'] = age > 0 ? age.toString() : "18"; // Default age set to 18
 
     if (selectedImage.value != null) {
       request.files.add(await http.MultipartFile.fromPath(

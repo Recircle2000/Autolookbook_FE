@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'settings_view.dart';
 import 'add_clothes_view.dart';
 import 'main_view.dart';
-import '../controllers/location_controller.dart';
+
 
 class NavView extends StatefulWidget {
   @override

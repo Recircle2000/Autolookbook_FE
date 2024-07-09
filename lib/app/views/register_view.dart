@@ -40,7 +40,7 @@ class RegisterView extends StatelessWidget {
             ),
             TextField(
               controller: nicknameController,
-              decoration: InputDecoration(labelText: '닉네임(선택)'),
+              decoration: InputDecoration(labelText: '닉네임'),
             ),
             TextField(
               controller: instagramIdController,

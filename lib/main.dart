@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
+Future main() async {
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  //await dotenv.load(fileName: ".env");	// 추가
-
+  await dotenv.load(fileName: ".env");	// 추가
   runApp(MyApp());
 }
 
@@ -24,8 +22,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         primaryColor: Colors.black, // 앱의 주요 색상을 검정색으로 설정
         textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.black), // 기본 텍스트 색상을 검정색으로 설정
-          bodyText2: TextStyle(color: Colors.black), // 기본 텍스트 색상을 검정색으로 설정
+          bodyLarge: TextStyle(color: Colors.black), // 기본 텍스트 색상을 검정색으로 설정
+          bodyMedium: TextStyle(color: Colors.black), // 기본 텍스트 색상을 검정색으로 설정
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
