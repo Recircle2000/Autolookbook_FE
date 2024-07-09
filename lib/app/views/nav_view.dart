@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'settings_view.dart';
 import 'add_clothes_view.dart';
 import 'main_view.dart';
+import 'test_view.dart';
 
 
 class NavView extends StatefulWidget {
@@ -17,6 +18,7 @@ class _NavViewState extends State<NavView> {
     MainView(),
     AddClothesView(),
     SettingsView(),
+    TestView(),
   ];
 
   void _onItemTapped(int index) {
@@ -51,6 +53,10 @@ class _NavViewState extends State<NavView> {
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: '환경 설정',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: '테스트',
           ),
         ],
         currentIndex: _selectedIndex,
