@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../controllers/auth_controller.dart';
+import '../viewmodel/auth_viewmodel.dart';
 import '../routes/app_routes.dart'; // 추가
 
 class LoginView extends StatelessWidget {

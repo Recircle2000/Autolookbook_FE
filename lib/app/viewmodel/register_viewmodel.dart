@@ -25,7 +25,7 @@ class RegisterController extends GetxController {
     request.fields['password2'] = password2;
     request.fields['User_NickName'] = nickname;
     request.fields['User_Instagram_ID'] = instagramId.isNotEmpty ? instagramId : "default_instagram_id";
-    request.fields['User_Age'] = age > 0 ? age.toString() : "18"; // Default age set to 18
+    request.fields['User_Age'] = age > 0 ? age.toString() : "00"; // Default age set to 18
 
     if (selectedImage.value != null) {
       request.files.add(await http.MultipartFile.fromPath(

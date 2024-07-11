@@ -1,13 +1,15 @@
-import 'package:autolookbook/app/controllers/location_controller.dart';
-import 'package:autolookbook/app/controllers/weather_controller.dart';
+import 'package:autolookbook/app/viewmodel/clothes/clothes_check_viewmodel.dart';
+import 'package:autolookbook/app/viewmodel/location_viewmodel.dart';
+import 'package:autolookbook/app/viewmodel/weather_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../utils/weather_conditions.dart';
-import '../controllers/gptcontroller.dart';
+import '../viewmodel/gpt_viewmodel.dart';
 
 class TestView extends StatelessWidget {
   final LocationController locationController = Get.put(LocationController());
   final WeatherService weatherService = Get.put(WeatherService());
+  final ClothesCheckController clothesCheckController = Get.put(ClothesCheckController());
   final GeminiController geminiController = Get.put(GeminiController());
 
   @override
@@ -37,6 +39,8 @@ class TestView extends StatelessWidget {
               Obx(() => Text('강수량 : ${weatherService.RN1.value}mm')),
               Obx(() => Text('최저기온 : ${weatherService.TMN.value}°C')),
               Obx(() => Text('최고기온 : ${weatherService.TMX.value}°C')),
+              Obx(() => Text('습도 : ${weatherService.REH.value}%')),
+              Obx(() => Text('체감온도 : ${weatherService.WindChill.value}°C')),
               Obx(() => Text(geminiController.Text.value)),
               ElevatedButton(
                 onPressed: () {
@@ -46,9 +50,18 @@ class TestView extends StatelessWidget {
                       weatherService.TMX.value.toString(),
                       weatherService.PTY.value,
                       weatherService.WSD.value.toString(),
-                      weatherService.SKY.value);
+                      weatherService.SKY.value,
+                      weatherService.REH.value,
+                      weatherService.WindChill.value.toString());
                 },
-                child: Text('Get Gemini Text'),
+                child: Text('Gemini 답변 재생성'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Call the checkClothes method with example parameters
+                  clothesCheckController.checkClothes();
+                },
+                child: Text('Test Check Clothes'),
               ),
             ],
           ),

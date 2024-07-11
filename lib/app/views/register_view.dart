@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import '../controllers/register_controller.dart';
+import '../viewmodel/register_viewmodel.dart';
 
 class RegisterView extends StatelessWidget {
   final RegisterController registerController = Get.put(RegisterController());

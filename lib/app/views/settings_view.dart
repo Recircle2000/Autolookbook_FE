@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/auth_controller.dart';
+import '../viewmodel/auth_viewmodel.dart';
 
 class SettingsView extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
@@ -16,12 +16,6 @@ class SettingsView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('환경 설정 페이지'),
-            Text(
-              authController.getAccessToken() == null
-                  ? 'Access Token이 없습니다.'
-                  : 'Access Token: ${authController.getAccessToken()}',
-              style: TextStyle(fontSize: 20),
-            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

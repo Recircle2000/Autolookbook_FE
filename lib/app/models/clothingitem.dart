@@ -1,13 +1,13 @@
-class ClothingItem {
+class UploadClothingItem {
   final String category;
-  //final String color;
+  final String color;
 
-  ClothingItem({required this.category});
+  UploadClothingItem({required this.category, required this.color});
 
-  factory ClothingItem.fromJson(Map<String, dynamic> json) {
-    return ClothingItem(
+  factory UploadClothingItem.fromJson(Map<String, dynamic> json) {
+    return UploadClothingItem(
       category: json['category'],
-      // color: json['color'],
+      color: json['color'],
     );
   }
 }

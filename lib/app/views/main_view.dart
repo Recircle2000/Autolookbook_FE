@@ -1,6 +1,6 @@
-import 'package:autolookbook/app/controllers/gptcontroller.dart';
-import 'package:autolookbook/app/controllers/location_controller.dart';
-import 'package:autolookbook/app/controllers/weather_controller.dart';
+import 'package:autolookbook/app/viewmodel/gpt_viewmodel.dart';
+import 'package:autolookbook/app/viewmodel/location_viewmodel.dart';
+import 'package:autolookbook/app/viewmodel/weather_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';

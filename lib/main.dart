@@ -1,4 +1,4 @@
-import 'package:autolookbook/app/controllers/auth_controller.dart';
+import 'package:autolookbook/app/viewmodel/auth_viewmodel.dart';
 import 'package:autolookbook/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

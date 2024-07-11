@@ -1,24 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'weather_controller.dart';
+import 'weather_viewmodel.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import '../models/location.dart'; // Import your location model
-import 'convert_gps.dart';
+import '../utils/convert_gps.dart';
 import 'package:http/http.dart' as http;
 
 class LocationController extends GetxController {
   var currentLocation = Location_lalo(latitude: 0.0, longitude: 0.0).obs;
   var currentLocation_xy = Location_xy(x: 0, y: 0).obs;
   var currentAddress = "".obs;
-
-  /*@override
-  void onInit() {
-    super.onInit();
-    getCurrentLocation();
-    print("Location Controller Initialized");
-  }*/
 
   Future<void> getCurrentLocation() async {
     bool serviceEnabled;
@@ -39,7 +32,7 @@ class LocationController extends GetxController {
 
     if (permission == LocationPermission.deniedForever) {
       return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+          '펄미션 체크');
     }
 
     //gps를 통해 받아오는 정보는 위도, 경도

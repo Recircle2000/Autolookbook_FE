@@ -5,7 +5,6 @@ import 'add_clothes_view.dart';
 import 'main_view.dart';
 import 'test_view.dart';
 
-
 class NavView extends StatefulWidget {
   @override
   _NavViewState createState() => _NavViewState();
@@ -41,6 +40,12 @@ class _NavViewState extends State<NavView> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        // 이 부분을 추가
+        selectedItemColor: Colors.black,
+        // 선택된 아이템의 색상
+        unselectedItemColor: Colors.grey,
+        // 선택되지 않은 아이템의 색상
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -55,12 +60,11 @@ class _NavViewState extends State<NavView> {
             label: '환경 설정',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.adb),
             label: '테스트',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
     );

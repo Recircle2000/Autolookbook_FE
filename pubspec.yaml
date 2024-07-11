@@ -53,6 +53,7 @@ dependencies:
   camera:
   google_generative_ai: ^0.4.3
   loading_animation_widget: ^1.2.1
+  flutter_image_compress: ^1.1.0
 
 
 dev_dependencies:
