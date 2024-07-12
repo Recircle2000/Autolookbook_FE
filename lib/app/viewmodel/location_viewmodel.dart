@@ -8,7 +8,7 @@ import '../models/location.dart';
 import '../utils/convert_gps.dart';
 import 'package:http/http.dart' as http;
 
-class LocationController extends GetxController {
+class LocationViewModel extends GetxController {
   var currentLocation = Location_lalo(latitude: 0.0, longitude: 0.0).obs;
   var currentLocation_xy = Location_xy(x: 0, y: 0).obs;
   var currentAddress = "".obs;

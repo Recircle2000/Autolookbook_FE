@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart';
 
-class RegisterController extends GetxController {
+class RegisterViewModel extends GetxController {
   var selectedImage = Rx<File?>(null);
   String url = dotenv.get("SERVER_IP");
 

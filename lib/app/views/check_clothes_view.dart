@@ -6,7 +6,7 @@ import '../models/clothes.dart';
 import '../utils/clothes_type.dart';
 
 class CheckClothesView extends StatelessWidget {
-  final ClothesCheckController clothesCheckController = Get.put(ClothesCheckController());
+  final ClothesCheckViewModel clothesCheckViewModel = Get.put(ClothesCheckViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,9 @@ class CheckClothesView extends StatelessWidget {
           PopupMenuButton<String>(
             onSelected: (String value) async {
               if (value == '전체') {
-                await clothesCheckController.checkClothes();
+                await clothesCheckViewModel.checkClothes();
               } else {
-                await clothesCheckController.checkClothes(clotheCategory: value);
+                await clothesCheckViewModel.checkClothes(clotheCategory: value);
               }
             },
             itemBuilder: (BuildContext context) {
@@ -45,13 +45,13 @@ class CheckClothesView extends StatelessWidget {
           Expanded(
             child: Obx(
                   () {
-                if (clothesCheckController.clothesList.isEmpty) {
+                if (clothesCheckViewModel.clothesList.isEmpty) {
                   return Center(child: Text('옷 없음.'));
                 } else {
                   return ListView.builder(
-                    itemCount: clothesCheckController.clothesList.length,
+                    itemCount: clothesCheckViewModel.clothesList.length,
                     itemBuilder: (context, index) {
-                      var clothes = clothesCheckController.clothesList[index];
+                      var clothes = clothesCheckViewModel.clothesList[index];
                       var clothesCategory = ClothesType.getClothesValue(clothes.clothesCategory ?? 'Unknown');
                       return ListTile(
                         title: Text(clothesCategory ?? 'Unknown'),

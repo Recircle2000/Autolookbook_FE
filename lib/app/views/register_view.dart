@@ -5,7 +5,7 @@ import 'dart:io';
 import '../viewmodel/register_viewmodel.dart';
 
 class RegisterView extends StatelessWidget {
-  final RegisterController registerController = Get.put(RegisterController());
+  final RegisterViewModel registerViewModel = Get.put(RegisterViewModel());
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController password1Controller = TextEditingController();
   final TextEditingController password2Controller = TextEditingController();
@@ -56,7 +56,7 @@ class RegisterView extends StatelessWidget {
               onPressed: () async {
                 final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
                 if (pickedFile != null) {
-                  registerController.selectedImage.value = File(pickedFile.path);
+                  registerViewModel.selectedImage.value = File(pickedFile.path);
                 }
               },
               child: Text('프로필 사진(선택)'),
@@ -65,11 +65,11 @@ class RegisterView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Obx(() {
-                if (registerController.selectedImage.value != null) {
+                if (registerViewModel.selectedImage.value != null) {
                   return Container(
                     width: 100.0, //  너비
                     height: 100.0, // 높이
-                    child: Image.file(registerController.selectedImage.value!),
+                    child: Image.file(registerViewModel.selectedImage.value!),
                   );
                 } else {
                   return Text('이미지 업로드 안 함.');
@@ -79,7 +79,7 @@ class RegisterView extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                registerController.register(
+                registerViewModel.register(
                   usernameController.text,
                   password1Controller.text,
                   password2Controller.text,

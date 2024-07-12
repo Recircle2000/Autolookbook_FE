@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../viewmodel/auth_viewmodel.dart';
 
 class SettingsView extends StatelessWidget {
-  final AuthController authController = Get.find<AuthController>();
+  final AuthViewModel authViewModel = Get.find<AuthViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class SettingsView extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                authController.logout();
+                authViewModel.logout();
                 Get.offAllNamed('/login');
               },
               child: Text('Logout'),

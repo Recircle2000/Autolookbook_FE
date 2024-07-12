@@ -5,7 +5,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 
 
 String apiKey = dotenv.get("GEMINI_API_KEY");
-class GeminiController extends GetxController {
+class GeminiViewModel extends GetxController {
   var Text = "".obs;
   Future<void> getgemini(String t1h, String tmn, String tmx, int pty, String wsd, int sky,int reh,String windchill) async {
 

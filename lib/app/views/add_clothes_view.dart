@@ -8,7 +8,7 @@ import '../utils/clothes_type.dart';
 import '../utils/colors_type.dart';
 
 class AddClothesView extends StatelessWidget {
-  final ClothingController viewModel = Get.put(ClothingController());
+  final ClothingViewModel clothingViewModel = Get.put(ClothingViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -24,28 +24,28 @@ class AddClothesView extends StatelessWidget {
                 onPressed: () async {
                   var image = await ImagePicker().pickImage(source: ImageSource.gallery);
                   if (image != null) {
-                    viewModel.uploadImage(io.File(image.path));
+                    clothingViewModel.uploadImage(io.File(image.path));
                   }
                 },
                 child: Text('옷 촬영'),
               ),
               Obx(() {
-                if (viewModel.isLoading.isTrue) {
+                if (clothingViewModel.isLoading.isTrue) {
                   return LoadingAnimationWidget
                       .waveDots(
                     size: 50,
                     color: Colors.black,
                   );
-                } else if (viewModel.clothingItem.value != null) {
+                } else if (clothingViewModel.clothingItem.value != null) {
                   return Column(
                     children: [
-                      Text('Category: ${ClothesType.clothesType[viewModel.clothingItem.value!.category]}'),
-                      Text('Color: ${ColorsType.colorsType[viewModel.clothingItem.value!.color]}'),
-                      if (viewModel.lastImagePath.isNotEmpty) // Step 3: Check if the image path is not null
-                        Image.file(io.File(viewModel.lastImagePath.value)), // Display the image
+                      Text('Category: ${ClothesType.clothesType[clothingViewModel.clothingItem.value!.category]}'),
+                      Text('Color: ${ColorsType.colorsType[clothingViewModel.clothingItem.value!.color]}'),
+                      if (clothingViewModel.lastImagePath.isNotEmpty)
+                        Image.file(io.File(clothingViewModel.lastImagePath.value)),
                       ElevatedButton(
                         onPressed: () {
-                          viewModel.confirmAndUpload();
+                          clothingViewModel.confirmAndUpload();
                         },
                         child: Text('이 옷 추가하기'),
                       ),

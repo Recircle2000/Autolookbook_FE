@@ -9,9 +9,9 @@ import 'package:intl/intl.dart';
 import '../widgets/datedisplayWidget.dart';
 
 class MainView extends StatelessWidget {
-  final LocationController locationController = Get.put(LocationController());
-  final WeatherService weatherService = Get.put(WeatherService());
-  final GeminiController geminiController = Get.put(GeminiController());
+  final LocationViewModel locationViewModel = Get.put(LocationViewModel());
+  final WeatherViewModel weatherViewModel = Get.put(WeatherViewModel());
+  final GeminiViewModel geminiViewModel = Get.put(GeminiViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +30,16 @@ class MainView extends StatelessWidget {
                   SizedBox(height: 20),
                   Row(
                     children: [
-                      Obx(() => locationController.currentAddress.value.isEmpty
+                      Obx(() => locationViewModel.currentAddress.value.isEmpty
                           ? Icon(Icons.location_off)
                           : Icon(Icons.location_on)),
                       SizedBox(width: 8),
-                      Obx(() => locationController.currentAddress.value.isEmpty
+                      Obx(() => locationViewModel.currentAddress.value.isEmpty
                           ? LoadingAnimationWidget.prograssiveDots(
                               size: 20,
                               color: Colors.black,
                             )
-                          : Text(locationController.currentAddress.value)),
+                          : Text(locationViewModel.currentAddress.value)),
                     ],
                   ),
                   SizedBox(height: 8),
@@ -59,7 +59,7 @@ class MainView extends StatelessWidget {
                             children: [
                               DateDisplayWidget(),
                               Obx(() => Center(
-                                    child: weatherService.T1H.value
+                                    child: weatherViewModel.T1H.value
                                                 .toString() ==
                                             "99"
                                         ? LoadingAnimationWidget
@@ -68,18 +68,18 @@ class MainView extends StatelessWidget {
                                             color: Colors.black,
                                           )
                                         : Text(
-                                            '${weatherService.T1H.value}°C',
+                                            '${weatherViewModel.T1H.value}°C',
                                             style: TextStyle(
                                                 fontSize: 35,
                                                 fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.center,
                                           ),
                                   )),
-                              Obx(() => weatherService.TMN.value == 99 &&
-                                      weatherService.TMX.value == 99
+                              Obx(() => weatherViewModel.TMN.value == 99 &&
+                                      weatherViewModel.TMX.value == 99
                                   ? Text('')
                                   : Text(
-                                      '최저 ${weatherService.TMN.value}° / 최고 ${weatherService.TMX.value}°')),
+                                      '최저 ${weatherViewModel.TMN.value}° / 최고 ${weatherViewModel.TMX.value}°')),
                             ],
                           ),
                           Spacer(),
@@ -112,12 +112,12 @@ class MainView extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Obx(() => Center(
-                        child: geminiController.Text.value.isEmpty
+                        child: geminiViewModel.Text.value.isEmpty
                             ? LoadingAnimationWidget.prograssiveDots(
                                 size: 30,
                                 color: Colors.black,
                               )
-                            : Text(geminiController.Text.value,
+                            : Text(geminiViewModel.Text.value,
                                 textAlign: TextAlign.center),
                       )),
                 ],

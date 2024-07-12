@@ -9,8 +9,8 @@ import '../models/weather.dart';
 import 'package:intl/intl.dart';
 import 'gpt_viewmodel.dart';
 
-class WeatherService extends GetxController {
-  LocationController locationController = Get.put(LocationController());
+class WeatherViewModel extends GetxController {
+  LocationViewModel locationViewModel = Get.put(LocationViewModel());
   List<WeatherData_Nest> _weatherDataList = [];
   List<WeatherData_Fest> _weatherDataList2 = [];
 
@@ -27,9 +27,9 @@ class WeatherService extends GetxController {
 
   void onInit() async {
     super.onInit();
-    await locationController.getCurrentLocation();
-    await fetchWeatherData(locationController.currentLocation_xy.value.x,
-        locationController.currentLocation_xy.value.y);
+    await locationViewModel.getCurrentLocation();
+    await fetchWeatherData(locationViewModel.currentLocation_xy.value.x,
+        locationViewModel.currentLocation_xy.value.y);
     updateValue();
 
     // GeminiController의 인스턴스를 찾아서 getgemini 메소드를 호출

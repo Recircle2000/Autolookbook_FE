@@ -6,11 +6,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import '../../models/clothes.dart';
 
-class ClothesCheckController extends GetxController {
+class ClothesCheckViewModel extends GetxController {
   var clothesList = <Clothes>[].obs;
 
   Future<void> checkClothes({String? clotheCategory, int? clotheId}) async {
-    var authController = Get.find<AuthController>();
+    var authController = Get.find<AuthViewModel>();
     String? token = await authController.getAccessToken();
     String url = "http://" + dotenv.get("SERVER_IP") + ":8000/api/Clothes/check";
 

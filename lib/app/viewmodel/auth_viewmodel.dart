@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class AuthController extends GetxController {
+class AuthViewModel extends GetxController {
   var isLoggedIn = false.obs;
   var isLoggingIn = false.obs;
   final storage = FlutterSecureStorage();

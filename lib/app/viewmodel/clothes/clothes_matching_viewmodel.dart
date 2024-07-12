@@ -4,10 +4,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class ClothesMatchingController {
+class ClothesMatchingViewModel {
   Future<void> matchClothes(int temperature, {int? clothesId}) async {
     String url = dotenv.get("SERVER_IP");
-    var authController = Get.find<AuthController>();
+    var authController = Get.find<AuthViewModel>();
     String? token = await authController.getAccessToken();
 
     var headers = {

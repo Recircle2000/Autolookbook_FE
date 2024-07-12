@@ -8,11 +8,11 @@ import 'package:path/path.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:get/get.dart';
-import '../../models/clothingitem.dart';
+import '../../models/uploadclothingitem.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'dart:convert';
 
-class ClothingController extends GetxController {
+class ClothingViewModel extends GetxController {
   var isLoading = false.obs;
   var clothingItem = Rxn<UploadClothingItem>();
   var lastImagePath = ''.obs;
@@ -87,7 +87,7 @@ class ClothingController extends GetxController {
   Future<void> confirmAndUpload() async {
     isLoading(true);
     try {
-      var authController = Get.find<AuthController>();
+      var authController = Get.find<AuthViewModel>();
       String? token = await authController.getAccessToken();
 
       var request = http.MultipartRequest('POST', Uri.parse('http://$url:8000/api/Clothes/create'));

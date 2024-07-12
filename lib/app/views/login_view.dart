@@ -5,7 +5,7 @@ import '../viewmodel/auth_viewmodel.dart';
 import '../routes/app_routes.dart'; // 추가
 
 class LoginView extends StatelessWidget {
-  final AuthController authController = Get.find<AuthController>();
+  final AuthViewModel authViewModel = Get.find<AuthViewModel>();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -49,14 +49,14 @@ class LoginView extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (!authController.isLoggingIn.value) {
-                      authController.login(
+                    if (!authViewModel.isLoggingIn.value) {
+                      authViewModel.login(
                         usernameController.text,
                         passwordController.text,
                       );
                     }
                   },
-                  child: Obx(() => authController.isLoggingIn.value
+                  child: Obx(() => authViewModel.isLoggingIn.value
                       ? CircularProgressIndicator(color: Colors.white)
                       : Text('로그인')),
                   style: ElevatedButton.styleFrom(
