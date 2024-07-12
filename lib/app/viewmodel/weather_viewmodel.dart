@@ -5,7 +5,7 @@ import 'package:autolookbook/app/viewmodel/location_viewmodel.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../models/weather.dart'; // Import your WeatherData model
+import '../models/weather.dart';
 import 'package:intl/intl.dart';
 import 'gpt_viewmodel.dart';
 
@@ -74,21 +74,20 @@ class WeatherService extends GetxController {
         '2300'
       ];
 
-// Convert current time to a format that matches the baseTimes format
+// int 타입으로 시간 변환
       int currentTimeAsInt = int.parse(DateFormat('HHmm').format(now));
 
-// Find the closest base time before the current time
+// api가 원하는 basetime 시간대로 변환
       String closestBaseTime = baseTimes.reversed.firstWhere(
           (time) => int.parse(time) <= currentTimeAsInt,
           orElse: () => '2300');
 
       if (closestBaseTime == '2300' && currentTimeAsInt < 200) {
-        // If current time is before 2 AM, use the previous day's date and 2300 as base time
+        // 오전 2시 이전의 경우, 전 날의 23시 데이터 요청
         baseDate2 =
             DateFormat('yyyyMMdd').format(now.subtract(Duration(days: 1)));
         baseTime2 = '2300';
       } else {
-        // Use the current date and the closest base time
         baseDate2 = DateFormat('yyyyMMdd').format(now);
         baseTime2 = closestBaseTime;
       }
@@ -108,7 +107,6 @@ class WeatherService extends GetxController {
         _weatherDataList = items
             .map<WeatherData_Nest>((item) => WeatherData_Nest.fromJson(item))
             .toList();
-        // Optionally, notify listeners or update the UI here
       } else {
         throw Exception('Failed to load weather data');
       }
@@ -120,12 +118,10 @@ class WeatherService extends GetxController {
         _weatherDataList2 = items
             .map<WeatherData_Fest>((item) => WeatherData_Fest.fromJson(item))
             .toList();
-        // Optionally, notify listeners or update the UI here
       } else {
         throw Exception('Failed to load weather data');
       }
     } catch (e) {
-      // Handle errors or notify listeners of the failure
     }
   }
 

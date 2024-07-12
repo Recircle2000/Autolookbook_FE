@@ -58,7 +58,6 @@ class TestView extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // Call the checkClothes method with example parameters
                   clothesCheckController.checkClothes();
                 },
                 child: Text('Test Check Clothes'),

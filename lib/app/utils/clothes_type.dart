@@ -28,4 +28,8 @@ class ClothesType {
     "Short_Skirt": "미니스커트",
     "denim-shirts": "데님 셔츠",
   };
+
+  static String? getClothesValue(String key) {
+    return clothesType[key];
+  }
 }

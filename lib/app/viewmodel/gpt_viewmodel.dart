@@ -17,7 +17,7 @@ class GeminiController extends GetxController {
     );
 
     //final prompt = ' 지금 날씨가 $t1h도, 최저 $tmn도, 최고$tmx도, 강수형태는$stpty, 풍속은 $wsd/s, 하늘상태는 $stsky, 습도는 $reh%야. 지금 외출한다면 뭘 입는게 좋을지 두 문장으로 간단하게 브리핑 해줘. 말투는 약간 존댓말로 발랄하게';
-    final prompt = '지금 날씨가 $t1h도, 체감온도는 $windchill도 야. 강수형태는 $stpty 하늘상태는 $stsky야. 지금 외출한다면 뭘 입는게 좋을지 두 문장으로 간단하게 브리핑 해줘. 너는 패션 비서야. 마지막은 !로';
+    final prompt = ' 너는 패션 비서야. 지금 날씨가 $t1h도, 체감온도는 $windchill도 야. 강수형태는 $stpty 하늘상태는 $stsky야. 지금 외출한다면 뭘 입는게 좋을지 두 문장으로 브리핑 해줘. 마지막은 !로';
     final content = [Content.text(prompt)];
     final response = await model.generateContent(content);
 

@@ -21,7 +21,6 @@ class MainView extends StatelessWidget {
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0),
-          // Add horizontal padding
           child: SingleChildScrollView(
             child: Center(
               child: Column(
@@ -46,9 +45,9 @@ class MainView extends StatelessWidget {
                   SizedBox(height: 8),
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[300], // Slightly gray color
+                      color: Colors.grey[300],
                       borderRadius:
-                          BorderRadius.circular(10), // Rounded corners
+                          BorderRadius.circular(10),
                     ),
                     height: 111,
                     child: Padding(

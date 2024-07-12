@@ -14,7 +14,6 @@ class ClothesCheckController extends GetxController {
     String? token = await authController.getAccessToken();
     String url = "http://" + dotenv.get("SERVER_IP") + ":8000/api/Clothes/check";
 
-    // Prepare query parameters
     Map<String, dynamic> queryParams = {};
     if (clotheCategory != null) queryParams['Clothe_category'] = clotheCategory;
     if (clotheId != null) queryParams['Clothe_id'] = clotheId.toString();
@@ -38,7 +37,7 @@ class ClothesCheckController extends GetxController {
   }
   void printFormattedJson(String responseBody) {
     var decodedJson = jsonDecode(responseBody);
-    var prettyString = JsonEncoder.withIndent('  ').convert(decodedJson);
+    var prettyString = JsonEncoder.withIndent('').convert(decodedJson);
     print(prettyString);
   }
 

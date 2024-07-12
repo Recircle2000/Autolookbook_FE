@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'weather_viewmodel.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
-import '../models/location.dart'; // Import your location model
+import '../models/location.dart';
 import '../utils/convert_gps.dart';
 import 'package:http/http.dart' as http;
 

@@ -68,7 +68,7 @@ class ClothingController extends GetxController {
         clothingItem(UploadClothingItem(category: category, color: color));
         lastImagePath.value = imageToUpload.path;
       } else {
-        throw Exception('Failed to upload image');
+        throw Exception('이미지 업로드 실패.');
       }
     } catch (e) {
       print(e);
@@ -112,15 +112,15 @@ class ClothingController extends GetxController {
       var response = await http.Response.fromStream(streamedResponse);
 
       if (response.statusCode == 204) {
-        Get.snackbar('Success', 'Image uploaded successfully');
+        Get.snackbar('이미지 업로드 성공', '이미지를 정상적으로 등록했어요.');
       } else {
-        Get.snackbar('Error', 'Failed to upload image');
+        Get.snackbar('에러', '이미지 업로드에 실패 했어요.');
         print('Response status: ${response.statusCode}');
         print('Response body: ${response.body}');
       }
     } catch (e) {
       print(e);
-      Get.snackbar('Error', 'An error occurred while uploading');
+      Get.snackbar('에러', '알 수 없는 에러 발생');
     } finally {
       isLoading(false);
     }

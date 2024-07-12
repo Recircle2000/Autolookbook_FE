@@ -6,9 +6,9 @@ import 'package:http/http.dart' as http;
 
 class ClothesMatchingController {
   Future<void> matchClothes(int temperature, {int? clothesId}) async {
-    String url = dotenv.get("SERVER_IP"); // Replace with your actual server URL
+    String url = dotenv.get("SERVER_IP");
     var authController = Get.find<AuthController>();
-    String? token = await authController.getAccessToken(); // Implement this method to retrieve the user's token
+    String? token = await authController.getAccessToken();
 
     var headers = {
       'Content-Type': 'application/json',
@@ -23,17 +23,11 @@ class ClothesMatchingController {
     var response = await http.post(Uri.parse(url), headers: headers, body: body);
 
     if (response.statusCode == 200) {
-      // Handle successful response
+      //성공
       print('Matching successful: ${response.body}');
     } else {
-      // Handle error
+      //실패
       print('Failed to match clothes: ${response.statusCode}');
     }
-  }
-
-  // Placeholder for getAccessToken method
-  Future<String> getAccessToken() async {
-    // Implement token retrieval logic
-    return 'your_access_token';
   }
 }

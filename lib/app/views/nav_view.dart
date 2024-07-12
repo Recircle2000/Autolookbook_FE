@@ -4,6 +4,7 @@ import 'settings_view.dart';
 import 'add_clothes_view.dart';
 import 'main_view.dart';
 import 'test_view.dart';
+import 'check_clothes_view.dart';
 
 class NavView extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class _NavViewState extends State<NavView> {
 
   static List<Widget> _widgetOptions = <Widget>[
     MainView(),
+    CheckClothesView(),
     AddClothesView(),
     SettingsView(),
     TestView(),
@@ -50,6 +52,10 @@ class _NavViewState extends State<NavView> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_sharp),
+            label: '옷 확인',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
