@@ -19,7 +19,7 @@ class ClothesCheckViewModel extends GetxController {
   Future<void> checkClothes({String? clotheCategory, int? clotheId}) async {
     var authController = Get.find<AuthViewModel>();
     String? token = await authController.getAccessToken();
-    String url = "http://" + dotenv.get("SERVER_IP") + ":8000/api/Clothes/check";
+    String url = "http://" + dotenv.get("SERVER_IP") + "/api/Clothes/check";
 
     Map<String, dynamic> queryParams = {};
     if (clotheCategory != null) queryParams['Clothe_category'] = clotheCategory;

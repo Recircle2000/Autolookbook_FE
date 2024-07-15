@@ -14,7 +14,7 @@ class AuthViewModel extends GetxController {
   void login(String username, String password) async {
     isLoggingIn.value = true;
     final response = await http.post(
-      Uri.parse('http://$url:8000/api/user/login'),
+      Uri.parse('http://$url/api/user/login'),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },

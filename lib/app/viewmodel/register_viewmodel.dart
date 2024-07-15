@@ -19,7 +19,7 @@ class RegisterViewModel extends GetxController {
       int age) async {
     //에뮬레이터 == 10.0.2.2
     //내부 ip == 192.168.45.126
-    var request = http.MultipartRequest('POST', Uri.parse('http://$url:8000/api/user/create'));
+    var request = http.MultipartRequest('POST', Uri.parse('http://$url/api/user/create'));
     request.fields['username'] = username;
     request.fields['password1'] = password1;
     request.fields['password2'] = password2;

@@ -48,7 +48,7 @@ class ClothingViewModel extends GetxController {
       }
 
       var request = http.MultipartRequest(
-          'POST', Uri.parse('http://$url:8000/api/Clothes/yolo'));
+          'POST', Uri.parse('http://$url/api/Clothes/yolo'));
       request.files.add(await http.MultipartFile.fromPath(
         'file',
         imageToUpload.path,
@@ -90,7 +90,7 @@ class ClothingViewModel extends GetxController {
       var authController = Get.find<AuthViewModel>();
       String? token = await authController.getAccessToken();
 
-      var request = http.MultipartRequest('POST', Uri.parse('http://$url:8000/api/Clothes/create'));
+      var request = http.MultipartRequest('POST', Uri.parse('http://$url/api/Clothes/create'));
 
       if (token != null) {
         request.headers.addAll({

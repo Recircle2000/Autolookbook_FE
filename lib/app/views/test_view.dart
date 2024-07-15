@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../utils/weather_conditions.dart';
 import '../viewmodel/gemini_viewmodel.dart';
+import 'package:autolookbook/app/viewmodel/clothes/clothes_matching_viewmodel.dart';
 
 class TestView extends StatelessWidget {
   final LocationViewModel locationViewModel = Get.put(LocationViewModel());
   final WeatherViewModel weatherViewModel = Get.put(WeatherViewModel());
   final ClothesCheckViewModel clothesCheckViewModel = Get.put(ClothesCheckViewModel());
+  final ClothesMatchingViewModel clothesMatchingViewModel = Get.put(ClothesMatchingViewModel());
   final GeminiViewModel geminiViewModel = Get.put(GeminiViewModel());
 
   @override
@@ -61,6 +63,12 @@ class TestView extends StatelessWidget {
                   clothesCheckViewModel.checkClothes();
                 },
                 child: Text('Test Check Clothes'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  clothesMatchingViewModel.matchClothes(weatherViewModel.T1H.value);
+                },
+                child: Text('Test Match Clothes'),
               ),
             ],
           ),
