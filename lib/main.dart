@@ -11,20 +11,28 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final AuthController authController = Get.put(AuthController());
+  final AuthViewModel authController = Get.put(AuthViewModel());
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
+        popupMenuTheme: PopupMenuThemeData(
+          color: Colors.white, // 팝업 메뉴의 배경 색상을 흰색으로 설정
+        ),
         primarySwatch: Colors.blue,
         primaryColor: Colors.black, // 앱의 주요 색상을 검정색으로 설정
+        scaffoldBackgroundColor: Colors.white, // 앱의 기본 배경 색상을 흰색으로 설정
         textTheme: TextTheme(
           bodyLarge: TextStyle(color: Colors.black), // 기본 텍스트 색상을 검정색으로 설정
           bodyMedium: TextStyle(color: Colors.black), // 기본 텍스트 색상을 검정색으로 설정
         ),
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+        ),
+        canvasColor: Colors.white, // 앱의 캔버스 색상을 흰색으로 설정
+        dialogBackgroundColor: Colors.white, // 다이얼로그의 배경 색상을 흰색으로 설정
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white, backgroundColor: Colors.black, // ElevatedButton 내의 텍스트 색상을 흰색으로 설정

@@ -27,7 +27,7 @@ class WeatherData_Nest { // 초단기 실황
   }
 }
 
-class WeatherData_Fest { // 초단기 실황
+class WeatherData_Fest { // 초단기 예보
   final String baseDate;
   final String baseTime;
   final String fcstDate;

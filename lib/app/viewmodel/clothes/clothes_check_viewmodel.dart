@@ -9,6 +9,13 @@ import '../../models/clothes.dart';
 class ClothesCheckViewModel extends GetxController {
   var clothesList = <Clothes>[].obs;
 
+
+  @override
+  void onInit() {
+    super.onInit();
+    checkClothes();
+  }
+
   Future<void> checkClothes({String? clotheCategory, int? clotheId}) async {
     var authController = Get.find<AuthViewModel>();
     String? token = await authController.getAccessToken();

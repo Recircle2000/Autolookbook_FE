@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import 'settings_view.dart';
 import 'add_clothes_view.dart';
@@ -12,66 +13,57 @@ class NavView extends StatefulWidget {
 }
 
 class _NavViewState extends State<NavView> {
-  int _selectedIndex = 0;
-
-  static List<Widget> _widgetOptions = <Widget>[
-    MainView(),
-    CheckClothesView(),
-    AddClothesView(),
-    SettingsView(),
-    TestView(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
+      body: PersistentTabView(
+        tabs: [
+          PersistentTabConfig(
+            screen: MainView(),
+            item: ItemConfig(
+              icon: Icon(Icons.home),
+              title: "Home",
+              activeForegroundColor: Colors.black,
+            ),
+          ),
+          PersistentTabConfig(
+            screen: CheckClothesView(),
+            item: ItemConfig(
+              icon: Icon(Icons.account_circle_sharp),
+              title: "옷 확인",
+              activeForegroundColor: Colors.black,
+            ),
+          ),
+          PersistentTabConfig(
+            screen: AddClothesView(),
+            item: ItemConfig(
+              icon: Icon(Icons.add),
+              title: '옷 추가',
+              activeForegroundColor: Colors.black,
+              iconSize: 30,
+            ),
+          ),
+          PersistentTabConfig(
+            screen: SettingsView(),
+            item: ItemConfig(
+              icon: Icon(Icons.settings),
+              title: "환경 설정",
+              activeForegroundColor: Colors.black,
+
+            ),
+          ),
+          PersistentTabConfig(
+            screen: TestView(),
+            item: ItemConfig(
+              icon: Icon(Icons.adb),
+              title: "테스트",
+              activeForegroundColor: Colors.black,
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        // 이 부분을 추가
-        selectedItemColor: Colors.black,
-        // 선택된 아이템의 색상
-        unselectedItemColor: Colors.grey,
-        // 선택되지 않은 아이템의 색상
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_sharp),
-            label: '옷 확인',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: '옷 추가',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: '환경 설정',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.adb),
-            label: '테스트',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        navBarBuilder: (navBarConfig) => Style14BottomNavBar(
+          navBarConfig: navBarConfig,
+        ),
       ),
     );
   }

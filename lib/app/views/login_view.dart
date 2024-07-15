@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../viewmodel/auth_viewmodel.dart';
 import '../routes/app_routes.dart'; // 추가
 
@@ -13,7 +14,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('로그인'),
+        title: Text(''),
       ),
       body: Center(
         child: Padding(
@@ -56,14 +57,17 @@ class LoginView extends StatelessWidget {
                       );
                     }
                   },
-                  child: Obx(() => authViewModel.isLoggingIn.value
-                      ? CircularProgressIndicator(color: Colors.white)
-                      : Text('로그인')),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
+                  child: Obx(() => authViewModel.isLoggingIn.value
+                      ? LoadingAnimationWidget.prograssiveDots(
+                    size: 20,
+                    color: Colors.white,
+                  )
+                      : Text('로그인')),
                 ),
               ),
               TextButton(

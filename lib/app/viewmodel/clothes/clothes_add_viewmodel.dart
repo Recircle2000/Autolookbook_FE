@@ -111,12 +111,34 @@ class ClothingViewModel extends GetxController {
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
 
-      if (response.statusCode == 204) {
-        Get.snackbar('이미지 업로드 성공', '이미지를 정상적으로 등록했어요.');
-      } else {
-        Get.snackbar('에러', '이미지 업로드에 실패 했어요.');
-        print('Response status: ${response.statusCode}');
-        print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        Get.showSnackbar(const GetSnackBar(
+          title: "성공",
+          message: "이미지를 정상적으로 등록했어요.",
+          icon: Icon(Icons.error_outline,color: Colors.white),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.blueAccent,
+        ),);
+      } else if (response.statusCode == 400) {
+
+        Get.showSnackbar(const GetSnackBar(
+          title: "에러",
+          message: "이미 존재하는 이미지 입니다.",
+          icon: Icon(Icons.error_outline,color: Colors.white),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.redAccent,
+        ),);
+      }
+      else {
+        Get.showSnackbar(const GetSnackBar(
+          title: "에러",
+          message: "이미지 업로드에 실패 했어요.",
+          icon: Icon(Icons.error_outline,color: Colors.white),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.redAccent,
+        ),);
+        //print('Response status: ${response.statusCode}');
+        //print('Response body: ${response.body}');
       }
     } catch (e) {
       print(e);

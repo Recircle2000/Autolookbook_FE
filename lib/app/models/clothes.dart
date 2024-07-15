@@ -1,11 +1,11 @@
 class Clothes {
-  final int? clothesId; // Made nullable to accommodate auto-increment
+  final int? clothesId;
   final DateTime clothesCreateDate;
   final DateTime clothesLastFitDate;
   final String? clothesCategory;
-  final String clothesImage; // Assuming base64 representation for binary data
+  final String clothesImage; // base64
   final int? clothesCount;
-  final List<String> clothesScore; // Assuming serialized JSON or similar
+  final List<String> clothesScore;
   final String? userId;
   final String? clothesColor;
 

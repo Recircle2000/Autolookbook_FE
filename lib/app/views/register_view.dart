@@ -60,7 +60,12 @@ class RegisterView extends StatelessWidget {
                 }
               },
               child: Text('프로필 사진(선택)'),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),),
             ),
+
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -89,6 +94,10 @@ class RegisterView extends StatelessWidget {
                 );
               },
               child: Text('회원가입'),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),),
             ),
           ],
         ),

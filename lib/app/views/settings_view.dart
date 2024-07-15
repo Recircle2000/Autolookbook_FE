@@ -18,6 +18,7 @@ class SettingsView extends StatelessWidget {
             Text('환경 설정 페이지'),
             SizedBox(height: 20),
             ElevatedButton(
+
               onPressed: () {
                 authViewModel.logout();
                 Get.offAllNamed('/login');

@@ -1,4 +1,4 @@
-import 'package:autolookbook/app/viewmodel/gpt_viewmodel.dart';
+import 'package:autolookbook/app/viewmodel/gemini_viewmodel.dart';
 import 'package:autolookbook/app/viewmodel/location_viewmodel.dart';
 import 'package:autolookbook/app/viewmodel/weather_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../utils/weather_conditions.dart';
 import 'package:intl/intl.dart';
 import '../widgets/datedisplayWidget.dart';
+import 'outing_view.dart';
 
 class MainView extends StatelessWidget {
   final LocationViewModel locationViewModel = Get.put(LocationViewModel());
@@ -102,7 +103,7 @@ class MainView extends StatelessWidget {
                               icon: Icon(Icons.exit_to_app), // 밖으로 나가는 아이콘
                               iconSize: 48.0,
                               onPressed: () {
-                                // 버튼이 눌렸을 때 실행할 코드 작성
+                                Get.to(() => OutingView());
                               },
                             ),
                           ),

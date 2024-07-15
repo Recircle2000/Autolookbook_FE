@@ -4,7 +4,7 @@ import 'package:autolookbook/app/viewmodel/weather_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../utils/weather_conditions.dart';
-import '../viewmodel/gpt_viewmodel.dart';
+import '../viewmodel/gemini_viewmodel.dart';
 
 class TestView extends StatelessWidget {
   final LocationViewModel locationViewModel = Get.put(LocationViewModel());

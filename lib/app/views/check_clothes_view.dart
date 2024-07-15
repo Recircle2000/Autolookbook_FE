@@ -13,6 +13,7 @@ class CheckClothesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('옷 확인'),
+        scrolledUnderElevation: 0,
         actions: [
           PopupMenuButton<String>(
             onSelected: (String value) async {
