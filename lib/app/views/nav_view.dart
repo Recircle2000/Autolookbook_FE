@@ -30,7 +30,7 @@ class _NavViewState extends State<NavView> {
             screen: CheckClothesView(),
             item: ItemConfig(
               icon: Icon(Icons.account_circle_sharp),
-              title: "옷 확인",
+              title: "MY 옷장",
               activeForegroundColor: Colors.black,
             ),
           ),

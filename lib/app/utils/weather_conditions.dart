@@ -1,6 +1,6 @@
 // lib/utils/weather_conditions.dart
 
-class Rain_SnowConditions {
+class Rain_SnowConditions { //PTY
   static const Map<int, String> rain_snowconditions = {
     0: "없음",
     1: "비",
@@ -10,7 +10,7 @@ class Rain_SnowConditions {
   };
 }
 
-class SkyConditions {
+class SkyConditions { //SKY
   static const Map<int, String> skyConditions = {
     1: "맑음",
     3: "구름많음",

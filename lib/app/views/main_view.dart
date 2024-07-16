@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../utils/weather_conditions.dart';
 import 'package:intl/intl.dart';
-import '../widgets/datedisplayWidget.dart';
+import '../widgets/main_view/datedisplayWidget.dart';
 import 'outing_view.dart';
+import '../widgets/main_view/weathericonswidget.dart';
 
 class MainView extends StatelessWidget {
   final LocationViewModel locationViewModel = Get.put(LocationViewModel());
@@ -59,23 +60,32 @@ class MainView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               DateDisplayWidget(),
-                              Obx(() => Center(
-                                    child: weatherViewModel.T1H.value
-                                                .toString() ==
-                                            "99"
-                                        ? LoadingAnimationWidget
-                                            .waveDots(
-                                            size: 50,
-                                            color: Colors.black,
-                                          )
-                                        : Text(
-                                            '${weatherViewModel.T1H.value}°C',
-                                            style: TextStyle(
-                                                fontSize: 35,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                  )),
+                              Obx(() => Row(
+                                children: [
+                                  Center(
+                                        child: weatherViewModel.T1H.value
+                                                    .toString() ==
+                                                "99"
+                                            ? LoadingAnimationWidget
+                                                .waveDots(
+                                                size: 50,
+                                                color: Colors.black,
+                                              )
+                                            : Text(
+                                                '${weatherViewModel.T1H.value}°C',
+                                                style: TextStyle(
+                                                    fontSize: 35,
+                                                    fontWeight: FontWeight.bold),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                      ),
+                                  SizedBox(width: 8),
+                                  Icon(
+                                    getWeatherIcon(weatherViewModel.COND.value),
+                                    size: 24.0,
+                                  ),
+                                ],
+                              )),
                               Obx(() => weatherViewModel.TMN.value == 99 &&
                                       weatherViewModel.TMX.value == 99
                                   ? Text('')

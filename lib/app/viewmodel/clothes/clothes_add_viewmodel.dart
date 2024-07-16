@@ -1,4 +1,5 @@
 import 'package:autolookbook/app/viewmodel/auth_viewmodel.dart';
+import 'package:autolookbook/app/viewmodel/clothes/clothes_check_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -17,15 +18,7 @@ class ClothingViewModel extends GetxController {
   var clothingItem = Rxn<UploadClothingItem>();
   var lastImagePath = ''.obs;
   String url = dotenv.get("SERVER_IP");
-
-  Future<String> saveImageLocally(File image) async {
-    final directory =
-        await getApplicationDocumentsDirectory(); // 앱의 문서 디렉토리 경로
-    final fileName = path.basename(image.path); // 이미지 파일의 이름
-    final savedImage =
-        await image.copy('${directory.path}/$fileName'); // 이미지를 로컬 디렉토리에 복사
-    return savedImage.path; // 저장된 이미지의 경로를 반환.
-  }
+  ClothesCheckViewModel clothesCheckViewModel = Get.find<ClothesCheckViewModel>();
 
   Future<void> uploadImage(File image) async {
     isLoading(true);
@@ -112,6 +105,7 @@ class ClothingViewModel extends GetxController {
       var response = await http.Response.fromStream(streamedResponse);
 
       if (response.statusCode == 200) {
+        clothesCheckViewModel.checkClothes();
         Get.showSnackbar(const GetSnackBar(
           title: "성공",
           message: "이미지를 정상적으로 등록했어요.",

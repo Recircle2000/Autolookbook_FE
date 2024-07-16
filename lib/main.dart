@@ -36,6 +36,9 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white, backgroundColor: Colors.black, // ElevatedButton 내의 텍스트 색상을 흰색으로 설정
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
         ),
         textButtonTheme: TextButtonThemeData(

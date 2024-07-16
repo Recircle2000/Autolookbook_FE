@@ -22,6 +22,7 @@ class WeatherViewModel extends GetxController {
   var TMX = 99.obs; //최고기온
   var SKY = 99.obs; //하늘상태
   var REH = 110.obs; //습도
+  var COND = "".obs; //하늘+강수형태 = 날씨상태
   //체감온도
   var WindChill = 100.0.obs;
 
@@ -175,6 +176,27 @@ class WeatherViewModel extends GetxController {
     }
 
     WindChill.value = double.parse((13.12 + 0.6215 * T1H.value - 11.37 * pow(WSD.value, 0.16) + 0.3965 * T1H.value * pow(WSD.value, 0.16)).toStringAsFixed(1));
+    updateCond();
     }
 
+
+  void updateCond() {
+    if (PTY.value == 0) {
+      if (SKY.value == 1) {
+        COND.value = "맑음";
+      } else if (SKY.value == 3) {
+        COND.value = "구름많음";
+      } else if (SKY.value == 4) {
+        COND.value = "흐림";
+      }
+    } else if (PTY.value == 1) {
+      COND.value = "비";
+    } else if (PTY.value == 2) {
+      COND.value = "비/눈";
+    } else if (PTY.value == 3) {
+      COND.value = "눈";
+    } else if (PTY.value == 4) {
+      COND.value = "소나기";
+    }
+  }
 }

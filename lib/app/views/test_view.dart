@@ -43,6 +43,7 @@ class TestView extends StatelessWidget {
               Obx(() => Text('최고기온 : ${weatherViewModel.TMX.value}°C')),
               Obx(() => Text('습도 : ${weatherViewModel.REH.value}%')),
               Obx(() => Text('체감온도 : ${weatherViewModel.WindChill.value}°C')),
+              Obx(() => Text('컨디션 : ${weatherViewModel.COND.value}')),
               Obx(() => Text(geminiViewModel.Text.value)),
               ElevatedButton(
                 onPressed: () {
@@ -50,11 +51,10 @@ class TestView extends StatelessWidget {
                       weatherViewModel.T1H.value.toString(),
                       weatherViewModel.TMN.value.toString(),
                       weatherViewModel.TMX.value.toString(),
-                      weatherViewModel.PTY.value,
                       weatherViewModel.WSD.value.toString(),
-                      weatherViewModel.SKY.value,
                       weatherViewModel.REH.value,
-                      weatherViewModel.WindChill.value.toString());
+                      weatherViewModel.WindChill.value.toString(),
+                      weatherViewModel.COND.value.toString());
                 },
                 child: Text('Gemini 답변 재생성'),
               ),
@@ -66,9 +66,15 @@ class TestView extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  clothesMatchingViewModel.matchClothes(weatherViewModel.T1H.value);
+                  clothesMatchingViewModel.matchClothes(weatherViewModel.WindChill.value.toInt());
                 },
-                child: Text('Test Match Clothes'),
+                child: Text('Test Match Clothes(온도)'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  clothesMatchingViewModel.matchClothes(weatherViewModel.WindChill.value.toInt(), clothesId: 60);
+                },
+                child: Text('Test Match Clothes(온도, 옷id)'),
               ),
             ],
           ),
