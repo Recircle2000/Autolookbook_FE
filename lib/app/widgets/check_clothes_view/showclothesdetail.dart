@@ -6,6 +6,7 @@ import 'package:autolookbook/app/utils/clothes_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../utils/colors_type.dart';
 
 void showClothesDetailPopup(BuildContext context, Clothes clothes) {
   clothesDeleteViewModel clothesdeleteviewmodel =
@@ -33,8 +34,8 @@ void showClothesDetailPopup(BuildContext context, Clothes clothes) {
                   '추가된 날짜: ${DateFormat('yyyy-MM-dd').format(clothes.clothesCreateDate)}'),
               Text(
                   '마지막 착용 날짜: ${DateFormat('yyyy-MM-dd').format(clothes.clothesLastFitDate)}'),
-              Text('색상: ${clothes.clothesColor ?? '알 수 없음'}'),
-              Text('착용 횟수: ${clothes.clothesCount?.toString() ?? '알 수 없음'}'),
+              Text('색상: ${ColorsType.getColorssValue(clothes.clothesColor  ?? 'Unknown' ) ?? '알 수 없음'}'),
+              Text('착용 횟수: ${clothes.clothesCount?.toString() ?? '알 수 없음'}회'),
             ],
           ),
         ),

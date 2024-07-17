@@ -72,7 +72,7 @@ class TestView extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  clothesMatchingViewModel.matchClothes(weatherViewModel.WindChill.value.toInt(), clothesId: 60);
+                  clothesMatchingViewModel.matchClothes(weatherViewModel.WindChill.value.toInt(), clothesId: 67);
                 },
                 child: Text('Test Match Clothes(온도, 옷id)'),
               ),

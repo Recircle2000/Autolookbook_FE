@@ -27,4 +27,8 @@ class ColorsType {
     "brown": "갈색",
   };
 
+  static String? getColorssValue(String key) {
+    return colorsType[key];
+  }
+
 }

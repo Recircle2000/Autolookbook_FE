@@ -51,7 +51,7 @@ class MainView extends StatelessWidget {
                       borderRadius:
                           BorderRadius.circular(10),
                     ),
-                    height: 111,
+                    height: 115,
                     child: Padding(
                       padding: EdgeInsets.all(12.0),
                       child: Row(
