@@ -57,11 +57,6 @@ class LoginView extends StatelessWidget {
                       );
                     }
                   },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
                   child: Obx(() => authViewModel.isLoggingIn.value
                       ? LoadingAnimationWidget.prograssiveDots(
                     size: 20,

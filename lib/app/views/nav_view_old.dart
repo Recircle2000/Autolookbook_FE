@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'settings_view.dart';
-import 'add_clothes_view.dart';
+import 'add_clothes/add_clothes_view.dart';
 import 'main_view.dart';
 import 'test_view.dart';
 import 'check_clothes_view.dart';

@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'package:autolookbook/app/viewmodel/clothes/clothes_matching_viewmodel.dart';
+import '../viewmodel/clothes/clothes_check_viewmodel.dart';
+import 'package:autolookbook/app/viewmodel/weather_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
@@ -6,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthViewModel extends GetxController {
+ClothesCheckViewModel clothesCheckViewModel = Get.put(ClothesCheckViewModel());
+
   var isLoggedIn = false.obs;
   var isLoggingIn = false.obs;
   final storage = FlutterSecureStorage();
@@ -33,6 +38,8 @@ class AuthViewModel extends GetxController {
       print("토큰값 : ${await storage.read(key: 'access_token')}");
       //print("토큰값 : ${getAccessToken()}");
       isLoggedIn.value = true;
+      clothesCheckViewModel.checkClothes();
+
       Get.offAllNamed('/home');
     } else if (response.statusCode == 401) {
       Get.showSnackbar(GetSnackBar(
@@ -56,6 +63,9 @@ class AuthViewModel extends GetxController {
   Future<void> logout() async {
     await storage.delete(key: 'access_token');
     await storage.delete(key: 'username');
+    ClothesMatchingViewModel matchingClothesViewModel = Get.put(ClothesMatchingViewModel());
+    matchingClothesViewModel.matchingClothesList.clear();
+
     isLoggedIn.value = false;
     Get.showSnackbar(GetSnackBar(
       title: "로그아웃",

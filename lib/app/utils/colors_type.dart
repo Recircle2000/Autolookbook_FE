@@ -30,5 +30,34 @@ class ColorsType {
   static String? getColorssValue(String key) {
     return colorsType[key];
   }
+}
 
+class ColorsHEX {
+  static const Map<String, String> colorsHEX = {
+    "white": "ffffff",
+    "black": "000000",
+    "gray": "808080",
+    "silver": "c0c0c0",
+    "light orange": "f5b041",
+    "orange": "ffa500",
+    "yellow": "ffff00",
+    "pink": "ffc0cb",
+    "light pink": "ffb6c1",
+    "ivory": "fffff0",
+    "beige": "f5f5dc",
+    "khaki": "f0e68c",
+    "light green": "90ee90",
+    "green": "008000",
+    "cyan": "00ffff",
+    "olive": "808000",
+    "light blue": "add8e6",
+    "blue": "0000ff",
+    "navy": "000080",
+    "light purple": "d8bfd8",
+    "purple": "800080",
+    "red purple": "800080",
+    "light red": "f08080",
+    "red": "ff0000",
+    "brown": "a52a2a",
+  };
 }

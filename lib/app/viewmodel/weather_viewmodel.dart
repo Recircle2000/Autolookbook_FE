@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:math';
+import 'package:autolookbook/app/models/matchingclothes.dart';
 import 'package:autolookbook/app/viewmodel/location_viewmodel.dart';
+import '../viewmodel/clothes/clothes_matching_viewmodel.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +12,7 @@ import 'gemini_viewmodel.dart';
 
 class WeatherViewModel extends GetxController {
   LocationViewModel locationViewModel = Get.put(LocationViewModel());
+
   List<WeatherData_Nest> _weatherDataList = [];
   List<WeatherData_Fest> _weatherDataList2 = [];
 
@@ -28,16 +30,11 @@ class WeatherViewModel extends GetxController {
 
   void onInit() async {
     super.onInit();
-    await locationViewModel.getCurrentLocation();
-    await fetchWeatherData(locationViewModel.currentLocation_xy.value.x,
-        locationViewModel.currentLocation_xy.value.y);
-    updateValue();
-
     // GeminiController의 인스턴스를 찾아서 getgemini 메소드를 호출
     //final geminiController = Get.find<GeminiController>();
     //await geminiController.getgemini(T1H.value.toString(), TMN.value.toString(),
     //    TMX.value.toString(), PTY.value, WSD.value.toString(), SKY.value, REH.value);
-    print("Controller Initialized");
+    //print("Controller Initialized");
   }
 
   Future<void> fetchWeatherData(int x, int y) async {
@@ -105,7 +102,7 @@ class WeatherViewModel extends GetxController {
         final Map<String, dynamic> decoded = json.decode(response_Ncst.body);
         final List<dynamic> items =
             decoded['response']['body']['items']['item'];
-        _weatherDataList = items
+        _weatherDataList = await items
             .map<WeatherData_Nest>((item) => WeatherData_Nest.fromJson(item))
             .toList();
       } else {
@@ -116,7 +113,7 @@ class WeatherViewModel extends GetxController {
         final Map<String, dynamic> decoded = json.decode(response_Fcst.body);
         final List<dynamic> items =
             decoded['response']['body']['items']['item'];
-        _weatherDataList2 = items
+        _weatherDataList2 = await items
             .map<WeatherData_Fest>((item) => WeatherData_Fest.fromJson(item))
             .toList();
       } else {
@@ -126,57 +123,58 @@ class WeatherViewModel extends GetxController {
     }
   }
 
-  void updateValue() {
-    final t1hData =
+  Future<void> updateValue() async {
+    final t1hData = await
     _weatherDataList.firstWhereOrNull((data) => data.category == 'T1H');
     if (t1hData != null) {
-      T1H.value = double.tryParse(t1hData.obsrValue)?.round() ?? 0;
+      T1H.value = await double.tryParse(t1hData.obsrValue)?.round() ?? 0;
     }
 
-    final ptyData =
+    final ptyData = await
     _weatherDataList.firstWhereOrNull((data) => data.category == 'PTY');
     if (ptyData != null) {
-      PTY.value = int.tryParse(ptyData.obsrValue) ?? 0;
+      PTY.value = await int.tryParse(ptyData.obsrValue) ?? 0;
     }
 
-    final wsdData =
+    final wsdData = await
     _weatherDataList.firstWhereOrNull((data) => data.category == 'WSD');
     if (wsdData != null) {
-      WSD.value = double.tryParse(wsdData.obsrValue) ?? 0.0;
+      WSD.value = await double.tryParse(wsdData.obsrValue) ?? 0.0;
     }
 
-    final rn1Data =
+    final rn1Data = await
     _weatherDataList.firstWhereOrNull((data) => data.category == 'RN1');
     if (rn1Data != null) {
-      RN1.value = double.tryParse(rn1Data.obsrValue) ?? 0.0;
+      RN1.value = await double.tryParse(rn1Data.obsrValue) ?? 0.0;
     }
 
-    final tmnData =
+    final tmnData = await
     _weatherDataList2.firstWhereOrNull((data) => data.category == 'TMN');
     if (tmnData != null) {
-      TMN.value = double.tryParse(tmnData.fcstValue)?.round() ?? 0;
+      TMN.value = await double.tryParse(tmnData.fcstValue)?.round() ?? 0;
     }
 
-    final tmxData =
+    final tmxData = await
     _weatherDataList2.firstWhereOrNull((data) => data.category == 'TMX');
     if (tmxData != null) {
-      TMX.value = double.tryParse(tmxData.fcstValue)?.round() ?? 0;
+      TMX.value = await double.tryParse(tmxData.fcstValue)?.round() ?? 0;
     }
 
-    final skyData =
+    final skyData = await
     _weatherDataList2.firstWhereOrNull((data) => data.category == 'SKY');
     if (skyData != null) {
-      SKY.value = int.tryParse(skyData.fcstValue) ?? 0;
+      SKY.value = await int.tryParse(skyData.fcstValue) ?? 0;
     }
 
-    final rehData =
+    final rehData = await
     _weatherDataList.firstWhereOrNull((data) => data.category == 'REH');
     if (rehData != null) {
-      REH.value = int.tryParse(rehData.obsrValue) ?? 0;
+      REH.value = await int.tryParse(rehData.obsrValue) ?? 0;
     }
 
-    WindChill.value = double.parse((13.12 + 0.6215 * T1H.value - 11.37 * pow(WSD.value, 0.16) + 0.3965 * T1H.value * pow(WSD.value, 0.16)).toStringAsFixed(1));
+    WindChill.value =  await double.parse((13.12 + 0.6215 * T1H.value - 11.37 * pow(WSD.value, 0.16) + 0.3965 * T1H.value * pow(WSD.value, 0.16)).toStringAsFixed(1));
     updateCond();
+    print("날씨 업데이트 완료");
     }
 
 

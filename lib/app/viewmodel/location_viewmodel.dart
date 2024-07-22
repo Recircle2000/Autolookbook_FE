@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'weather_viewmodel.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import '../models/location.dart';
 import '../utils/convert_gps.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LocationViewModel extends GetxController {
   var currentLocation = Location_lalo(latitude: 0.0, longitude: 0.0).obs;

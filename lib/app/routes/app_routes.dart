@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import '../views/login_view.dart';
 import '../views/nav_view.dart';
 import '../views/settings_view.dart';
-import '../views/add_clothes_view.dart';
+import '../views/add_clothes/add_clothes_view.dart';
 import '../views/register_view.dart';  // 추가
 
 class AppRoutes {

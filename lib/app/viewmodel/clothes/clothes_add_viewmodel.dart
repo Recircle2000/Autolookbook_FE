@@ -6,8 +6,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'package:path/path.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 import 'package:get/get.dart';
 import '../../models/uploadclothingitem.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -15,17 +13,24 @@ import 'dart:convert';
 
 class ClothingViewModel extends GetxController {
   var isLoading = false.obs;
+  var complete = 0.obs;
   var clothingItem = Rxn<UploadClothingItem>();
   var lastImagePath = ''.obs;
+  var selectedClothesType = ''.obs;
+  var selectedColorsType = ''.obs;
   String url = dotenv.get("SERVER_IP");
   ClothesCheckViewModel clothesCheckViewModel = Get.find<ClothesCheckViewModel>();
+  File imageToUpload = File('');
 
   Future<void> uploadImage(File image) async {
     isLoading(true);
+    lastImagePath("");
+    clothingItem = Rxn<UploadClothingItem>();
+    print(clothingItem.value);
     try {
       var imageWidth =
           (await decodeImageFromList(image.readAsBytesSync())).width;
-      File? imageToUpload = image;
+      imageToUpload = image;
 
       if (imageWidth > 1000) {
         var result = await FlutterImageCompress.compressAndGetFile(
@@ -52,18 +57,19 @@ class ClothingViewModel extends GetxController {
       var response = await http.Response.fromStream(streamedResponse);
 
       if (response.statusCode == 200) {
-
         var responseData = jsonDecode(response.body);
-        String category = responseData['category'];
-        String color = responseData['color'];
-
-        // 현재 인식된 옷의 카테고리와 색상을 저장.
-        clothingItem(UploadClothingItem(category: category, color: color));
+        selectedClothesType(responseData['category']);
+        selectedColorsType(responseData['color']);
+        clothingItem(UploadClothingItem(category: selectedClothesType.value, color: selectedColorsType.value));
         lastImagePath.value = imageToUpload.path;
+        complete(0);
       } else {
         throw Exception('이미지 업로드 실패.');
       }
     } catch (e) {
+      lastImagePath.value = imageToUpload.path;
+      print(clothingItem.value);
+      complete(1);
       print(e);
       Get.showSnackbar(const GetSnackBar(
         title: "에러",
@@ -79,6 +85,7 @@ class ClothingViewModel extends GetxController {
 
   Future<void> confirmAndUpload() async {
     isLoading(true);
+    clothingItem(UploadClothingItem(category: selectedClothesType.value, color: selectedColorsType.value));
     try {
       var authController = Get.find<AuthViewModel>();
       String? token = await authController.getAccessToken();
@@ -106,6 +113,11 @@ class ClothingViewModel extends GetxController {
 
       if (response.statusCode == 200) {
         clothesCheckViewModel.checkClothes();
+        complete(0);
+        lastImagePath = ''.obs;
+        selectedClothesType = RxString('');
+        selectedColorsType = RxString('');
+        clothingItem = Rxn<UploadClothingItem>();
         Get.showSnackbar(const GetSnackBar(
           title: "성공",
           message: "이미지를 정상적으로 등록했어요.",
